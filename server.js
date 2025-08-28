@@ -1,1 +1,13 @@
+const app = require("./app");
+const sendLeadEmails = require("./jobs/sendLeadEmails");
 
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+// Schedule daily lead emails at 6am
+if (sendLeadEmails && typeof sendLeadEmails.schedule === "function") {
+  sendLeadEmails.schedule();
+}
